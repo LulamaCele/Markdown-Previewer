@@ -1,0 +1,35 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#previewer-wrapper {
+    width: 65%;
+    display: block;
+    margin: 0 auto;
+    margin-top: 2rem;
+    border: 1px solid black;
+    height: auto;
+}
+
+#previewer-head {
+    border-bottom: 1px solid black;
+    padding: 0.2rem;
+    font-weight: bold;
+    background-color: cadetblue;
+}
+
+#icon1 {
+    margin: 0 0.3rem;
+}
+
+#icon2 {
+    float: right;
+}
+
+#previewer {
+    background-color: rgb(172, 206, 206);
+    padding:  1.5rem;
+    line-height: 200%;
+}

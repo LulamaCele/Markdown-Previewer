@@ -1,0 +1,32 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#editor-wrapper {
+    width: 45%;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+#editor-head {
+    border-bottom: 1px solid black;
+    padding: 0.2rem;
+    font-weight: bold;
+    background-color: cadetblue;
+}
+
+#icon1 {
+    margin: 0 0.3rem;
+}
+
+#icon2 {
+    float: right;
+}
+
+#editor {
+    width: 100%;
+    background-color: rgb(172, 206, 206);
+}

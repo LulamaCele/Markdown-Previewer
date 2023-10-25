@@ -1,25 +1,123 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { useState } from 'react';
+import { marked } from 'marked';
+import Prism from "prismjs";
+// import {defaultContent} from '../src/components/defaultContent'
+import { HiArrowsExpand } from 'react-icons/hi';
+import { LiaFreeCodeCamp } from 'react-icons/lia';
+import '../src/styles/app.css';
+import '../src/styles/editor.css';
+import '../src/styles/previewer.css';
+
+marked.setOptions({
+  breaks: true,
+  highligh: function (code) {
+    return Prism.highlight(code, Prism.languages.javascript, 'javascript');
+  }
+});
+
+const renderer = new marked.Renderer();
+renderer.link = function (href, title, text) {
+  return `<a target="_blank" href="${href}">${text}</a>`;
+};
+
+const defaultContent = `
+# Welcome to my React Markdown Previewer!
+
+## This is a sub-heading...
+### And here's some other cool stuff:
+
+Heres some code, \`<div></div>\`, between 2 backticks.
+
+\`\`\`
+// this is multi-line code:
+
+function anotherExample(firstLine, lastLine) {
+  if (firstLine == '\`\`\`' && lastLine == '\`\`\`') {
+    return multiLineCode;
+  }
+}
+
+\`\`\`
+
+You can also make text **bold**... whoa!
+Or _italic_.
+Or... wait for it... **_both!_**
+And feel free to go crazy ~~crossing stuff out~~.
+
+There's also [links](https://www.freecodecamp.org), and
+> Block Quotes!
+
+And if you want to get really crazy, even tables:
+
+Wild Header | Crazy Header | Another Header?
+------------ | ------------- | -------------
+Your content can | be here, and it | can be here....
+And here. | Okay. | I think we get it.
+
+- And of course there are lists.
+  - Some are bulleted.
+     - With different indentation levels.
+        - That look like this.
+
+
+1. And there are numbered lists too.
+1. Use just 1s if you want!
+1. And last but not least, let's not forget embedded images:
+
+![freeCodeCamp Logo](https://cdn.freecodecamp.org/testable-projects-fcc/images/fcc_secondary.svg)
+`; 
+
+
+function Editor({content, handleTextareaChange}) {
+
+  return (
+      <div id='editor-wrapper'>
+          <div id='editor-head'>
+              <span id='icon1'><LiaFreeCodeCamp fontSize={22} /></span>
+              Editor
+              <span id='icon2'><HiArrowsExpand fontSize={22} /></span>
+          </div>
+          <textarea name="editor" id="editor" cols="80" rows="12" value={content} onChange={handleTextareaChange}>
+          </textarea>
+      </div>
+  )
+}
+
+function Previewer({content}) {
+return (
+    <div id="previewer-wrapper">
+        <div id="previewer-head">
+            <span id='icon1'><LiaFreeCodeCamp fontSize={22} /></span>
+            Previewer
+            <span id='icon2'><HiArrowsExpand fontSize={22} /></span>
+        </div>
+        <div id='previewer' dangerouslySetInnerHTML={{
+          __html: marked(content, { renderer: renderer})
+        }} />
+    </div>
+
+)
+}
 
 function App() {
+
+  const [content, setContent] = useState(defaultContent)
+
+  const handleTextareaChange = (event) => {
+      setContent(event.target.value)
+  }
+
+
   return (
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <Editor content={content} handleTextareaChange={handleTextareaChange}/>
+     <Previewer content={content}/>
     </div>
   );
+
+  
 }
 
 export default App;
